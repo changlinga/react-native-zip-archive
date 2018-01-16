@@ -12,8 +12,9 @@
 #else
 #import "RCTBridgeModule.h"
 #endif
+#import <React/RCTEventEmitter.h>
 #import "SSZipArchive/RNZASSZipArchive.h"
 
-@interface RNZipArchive : NSObject<RCTBridgeModule, RNZASSZipArchiveDelegate>
+@interface RNZipArchive : RCTEventEmitter<RCTBridgeModule, RNZASSZipArchiveDelegate>
 
 @end

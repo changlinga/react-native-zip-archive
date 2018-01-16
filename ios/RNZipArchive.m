@@ -21,6 +21,11 @@
 
 RCT_EXPORT_MODULE();
 
+- (NSArray<NSString *> *)supportedEvents
+{
+    return @[@"zipArchiveProgressEvent"];
+}
+
 RCT_EXPORT_METHOD(unzip:(NSString *)from
                   destinationPath:(NSString *)destinationPath
                   resolver:(RCTPromiseResolveBlock)resolve
@@ -63,8 +68,8 @@ RCT_EXPORT_METHOD(zip:(NSString *)from
     return dispatch_queue_create("com.mockingbot.ReactNative.ZipArchiveQueue", DISPATCH_QUEUE_SERIAL);
 }
 
-- (void)zipArchiveProgressEvent:(NSInteger)loaded total:(NSInteger)total filePath:(NSString *)filePath {
-    [self.bridge.eventDispatcher sendAppEventWithName:@"zipArchiveProgressEvent" body:@{
+- (void)zipArchiveProgressEvent:(unsigned long long)loaded total:(unsigned long long)total filePath:(NSString *)filePath {
+    [self sendEventWithName:@"zipArchiveProgressEvent" body:@{
         @"progress": @((float)loaded / (float)total),
         @"filePath": filePath
     }];
